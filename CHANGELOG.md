@@ -4,6 +4,7 @@
    + Add Wallet Repository
    + Add Wallet Service
    + Date Persistance Configuration
+   + Add Wallet Balance Test
 
 
 ## initial
