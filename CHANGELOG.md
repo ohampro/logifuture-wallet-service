@@ -3,3 +3,4 @@
    - #1 Update ProblemStatment.md and README.md
    - #1 Define main features and MVP
    - #1 Decide tech stack & tools
+   - #1 Sketch initial domain model
