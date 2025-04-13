@@ -25,7 +25,12 @@
 - Proper exception handling and safe rollback on failure
 
 #### RESTful API
-- Expose endpoints for all required operations
+Expose endpoints for all required operations
+- GET   /users/{id}/balance
+- GET   /users/{id}/transactions
+- POST  /transactions/debit
+- POST  /transactions/credit
+
 
 ## Out of Scope
 These features won’t be implemented:
