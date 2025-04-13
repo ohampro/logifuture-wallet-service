@@ -6,12 +6,12 @@ The assignment should take less than 5-6 hours of your time, and you can submit 
  
 Here are some ground rules: 
  
-●	We would like to see the solution implemented in Java 
-●	You can use any library and/or framework that you see fit. Our preference would be Springboot and Postgresql db.
-●	You don’t need to deal with deployment, CI/CD, etc. 
-●	Make sure to provide instructions on how to run your deliverable and any dependencies it might have. 
-●	Write code as you would expect if you were working as part of a team and deploying to production
-●	Code comments are more than welcome, so we can understand your process
+-	We would like to see the solution implemented in Java 
+-	You can use any library and/or framework that you see fit. Our preference would be Springboot and Postgresql db.
+-	You don’t need to deal with deployment, CI/CD, etc. 
+-	Make sure to provide instructions on how to run your deliverable and any dependencies it might have. 
+-	Write code as you would expect if you were working as part of a team and deploying to production
+-	Code comments are more than welcome, so we can understand your process
  
 NOTE: Keep in mind that you should keep your repository private. You can use https://github.com to create an account with free private repos. Once you are done you can share your repo with Logifuture People & Talent (hrgroup@logifuture.com ) on GitHub. 
  
@@ -34,13 +34,13 @@ Task
 In a platform that processes Bets of any kind there needs to be a place where we can store all the transactions our users make, which we call a Wallet. We would like you to design and implement a service that is responsible for storing these transactions and provide the functionality for Debiting, Crediting and retrieving the user’s balance. 
  
 Requirements: 
-●	Each Bet has only one Debit transaction and one Credit transaction.
-●	All transactions should only be processed once.
-●	The user should be able to request their current balance at any point.
-●	We should be able to get a list of transactions and their types by user id.
-●	In a Bet, a player cannot receive a Credit unless they have first performed a Debit. 
-●	The system should be able to handle a large number of concurrent users and should be fault-tolerant, meaning that it should continue to operate even if some of the nodes in the system fail. 
-●	The service should provide a REST API.
-●	Don’t worry about authentication in your test service.
+-	Each Bet has only one Debit transaction and one Credit transaction.
+-	All transactions should only be processed once.
+-	The user should be able to request their current balance at any point.
+-	We should be able to get a list of transactions and their types by user id.
+-	In a Bet, a player cannot receive a Credit unless they have first performed a Debit. 
+-	The system should be able to handle a large number of concurrent users and should be fault-tolerant, meaning that it should continue to operate even if some of the nodes in the system fail. 
+-	The service should provide a REST API.
+-	Don’t worry about authentication in your test service.
  
 Try to keep the code simple and design/write the code as you would expect if you were writing it for a real lift scenario. Feel free to add any extra features or designs to the wallet if you deem it necessary.
