@@ -31,6 +31,14 @@ Expose endpoints for all required operations
 - POST  /transactions/debit
 - POST  /transactions/credit
 
+**API Naming Justification**
+- Should it be "/users/{id}" or "/wallet/{userId}"?
+   1. According to the [ProblemStatement.md](/docs/ProblemStatement.md), the statmens show a one-to-one relationship between the user and the wallet. 
+   2. The documant does not mention retrieving a list of user's wallets.
+   3. The documant does not clarify whether a user can select a wallet; it instead refers to "user balance," which suggests a single wallet per user.
+   4. When the "/wallet/{userId}" points to the only wallet a user has, and the API consumer does not have a walletId, "/users/{id}" seems more appropriate and concise than "/wallet/{userId}".
+   
+
 
 ## Out of Scope
 These features won’t be implemented:

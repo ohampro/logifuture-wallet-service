@@ -5,6 +5,7 @@
    + Add Wallet Service
    + Date Persistance Configuration
    + Add Wallet Balance Test
+   + Add Rest API
 
 
 ## initial
