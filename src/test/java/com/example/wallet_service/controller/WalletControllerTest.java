@@ -57,12 +57,13 @@ class WalletControllerTest {
     @Test
     void debit_reduceBalance() throws Exception {
         String userId = "user123";
+        String betId = "bet123";
         double balance = 100.0;
         double amount = 50.0;
-        TransactionInfo transactionInfo = new TransactionInfo(userId, amount);
+        TransactionInfo transactionInfo = new TransactionInfo(userId, betId, amount);
 
         when(walletService.getBalance(userId)).thenReturn(balance);
-        when(walletService.debit(userId, amount)).thenReturn(amount);
+        when(walletService.debit(userId, betId, amount)).thenReturn(amount);
             
         mockMvc.perform(
                 post("/transactions/debit", transactionInfo)
