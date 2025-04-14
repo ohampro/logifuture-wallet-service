@@ -1,5 +1,6 @@
 package com.example.wallet_service.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -31,6 +32,12 @@ public class WalletService {
     public double getBalance(String userId) {
         Wallet wallet = walletRepository.findById(userId).orElseThrow();
         return wallet.getBalance();
+    }
+    
+    
+    public List<Transaction> getTransactions(String userId) {
+        List<Transaction> transactions = transactionRepository.findAllByWalletId(userId);
+        return transactions;
     }
 
     /**

@@ -1,3 +1,7 @@
+## v1.0.1
+- feature: #10 Add User transactions API
+
+
 ## v1.0.0
 - feature: #2 Implement balance endpoint
    + Add Wallet Entity
