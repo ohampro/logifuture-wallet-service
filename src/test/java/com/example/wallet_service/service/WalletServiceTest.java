@@ -53,4 +53,62 @@ public class WalletServiceTest {
         });
 	}
 
+    // Test for debit method ----------------------------------------------------
+    @Test
+	void debitShould_decreaseBalance() {
+        // Arrange
+        String userId = "user123";
+        double initialBalance = 100.0; 
+        double debitAmount = 50.0;
+
+        Wallet wallet = new Wallet(userId, initialBalance);
+        when(walletRepository.findById(userId)).thenReturn(Optional.of(wallet));
+
+        // Act
+        double balance = walletService.debit(userId, debitAmount);
+
+        // Assert
+        assertThat(balance).isEqualTo(initialBalance - debitAmount);
+	}
+
+    @Test
+    void debitShouldThrowExceptionForInsufficientBalance() {
+        // Arrange
+        String userId = "user123";
+        double initialBalance = 100.0; 
+        double debitAmount = 150.0; 
+
+        Wallet wallet = new Wallet(userId, initialBalance);
+        when(walletRepository.findById(userId)).thenReturn(Optional.of(wallet));
+
+        // Act and Assert
+        assertThrows(UnsupportedOperationException.class, () -> {
+            walletService.debit(userId, debitAmount);
+        });
+    }
+
+    @Test
+    void debitShouldThrowExceptionForNegativeAmount() {
+        // Arrange
+        String userId = "user123";
+        double debitAmount = -50.0; 
+
+        // Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            walletService.debit(userId, debitAmount);
+        });
+    }
+    
+    @Test
+    void debitShouldThrowExceptionForZeroAmount() {
+        // Arrange
+        String userId = "user123";
+        double debitAmount = 0.0; 
+
+        // Act and Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            walletService.debit(userId, debitAmount);
+        });
+    }
+
 }
