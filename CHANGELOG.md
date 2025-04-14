@@ -2,7 +2,7 @@
 - feature: #10 Add User transactions API
 - chore: clean up structure and comments
 - feature: #12 Prevents race conditions on balance update
-
+- docs: Update README.md for instruction
 
 ## v1.0.0
 - feature: #2 Implement balance endpoint
