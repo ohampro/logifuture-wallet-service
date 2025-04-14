@@ -12,7 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.example.wallet_service.model.Transaction;
 import com.example.wallet_service.model.Wallet;
+import com.example.wallet_service.repository.TransactionRepository;
 import com.example.wallet_service.repository.WalletRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -20,6 +23,9 @@ public class WalletServiceTest {
 
     @Mock
     private WalletRepository walletRepository;
+
+    @Mock
+    private TransactionRepository transactionRepository;
 
     @InjectMocks
     private WalletService walletService;
@@ -58,6 +64,7 @@ public class WalletServiceTest {
 	void debitShould_decreaseBalance() {
         // Arrange
         String userId = "user123";
+        String betId = "bet123";
         double initialBalance = 100.0; 
         double debitAmount = 50.0;
 
@@ -65,7 +72,7 @@ public class WalletServiceTest {
         when(walletRepository.findById(userId)).thenReturn(Optional.of(wallet));
 
         // Act
-        double balance = walletService.debit(userId, debitAmount);
+        double balance = walletService.debit(userId, betId, debitAmount);
 
         // Assert
         assertThat(balance).isEqualTo(initialBalance - debitAmount);
@@ -75,6 +82,7 @@ public class WalletServiceTest {
     void debitShouldThrowExceptionForInsufficientBalance() {
         // Arrange
         String userId = "user123";
+        String betId = "bet123";
         double initialBalance = 100.0; 
         double debitAmount = 150.0; 
 
@@ -83,7 +91,7 @@ public class WalletServiceTest {
 
         // Act and Assert
         assertThrows(UnsupportedOperationException.class, () -> {
-            walletService.debit(userId, debitAmount);
+            walletService.debit(userId, betId, debitAmount);
         });
     }
 
@@ -91,11 +99,12 @@ public class WalletServiceTest {
     void debitShouldThrowExceptionForNegativeAmount() {
         // Arrange
         String userId = "user123";
+        String betId = "bet123";
         double debitAmount = -50.0; 
 
         // Act and Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            walletService.debit(userId, debitAmount);
+            walletService.debit(userId, betId, debitAmount);
         });
     }
     
@@ -103,11 +112,12 @@ public class WalletServiceTest {
     void debitShouldThrowExceptionForZeroAmount() {
         // Arrange
         String userId = "user123";
+        String betId = "bet123";
         double debitAmount = 0.0; 
 
         // Act and Assert
         assertThrows(IllegalArgumentException.class, () -> {
-            walletService.debit(userId, debitAmount);
+            walletService.debit(userId, betId, debitAmount);
         });
     }
 

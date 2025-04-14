@@ -12,6 +12,7 @@
    + Add debit to wallet service
    + Add Rest API
    + Update Tests
+- bugfix: #7 Debit API does not record transaction
 
 
 ## initial

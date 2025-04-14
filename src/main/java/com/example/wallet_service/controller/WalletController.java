@@ -25,7 +25,7 @@ public class WalletController {
     
     @PostMapping("/transactions/debit")
     public BalanceResponse debit(@RequestBody TransactionInfo transactionInfo) {
-        double balance = walletService.debit(transactionInfo.userId, transactionInfo.amount);
+        double balance = walletService.debit(transactionInfo.userId, transactionInfo.betId, transactionInfo.amount);
         return new BalanceResponse(balance);
     }
 

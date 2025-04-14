@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +42,11 @@ public class Transaction {
         this.amount = amount;
         this.betId = betId;
         this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = Instant.now();
     }
     
 }
