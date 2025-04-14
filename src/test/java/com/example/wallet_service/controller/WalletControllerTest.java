@@ -73,4 +73,24 @@ class WalletControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().string("{\"balance\":50.0}"));
     }
+    
+    @Test
+    void credit_increaseBalance() throws Exception {
+        String userId = "user123";
+        String betId = "bet123";
+        double balance = 100.0;
+        double amount = 50.0;
+        TransactionInfo transactionInfo = new TransactionInfo(userId, betId, amount);
+
+        when(walletService.getBalance(userId)).thenReturn(balance);
+        when(walletService.credit(userId, betId, amount)).thenReturn(balance + amount);
+            
+        mockMvc.perform(
+                post("/transactions/credit", transactionInfo)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(transactionInfo))
+            )
+            .andExpect(status().isOk())
+            .andExpect(content().string("{\"balance\":150.0}"));
+    }
 }

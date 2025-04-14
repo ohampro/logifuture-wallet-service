@@ -121,4 +121,81 @@ public class WalletServiceTest {
         });
     }
 
+    // Test for debit method ----------------------------------------------------
+    @Test
+    void creditShould_increaseBalance() {
+        // Arrange
+        String userId = "user123";
+        String betId = "bet123";
+        double initialBalance = 100.0; 
+        double debitAmount = 50.0;
+
+        Wallet wallet = new Wallet(userId, initialBalance);
+        when(walletRepository.findById(userId)).thenReturn(Optional.of(wallet));
+        
+        Transaction debit = new Transaction();
+        debit.setWalletId(userId);
+        debit.setBetId(betId);
+        debit.setType("debit");
+        when(transactionRepository.findByWalletIdAndBetIdAndType(userId, betId, "debit"))
+        .thenReturn(Optional.of(debit));
+
+        when(transactionRepository.findByWalletIdAndBetIdAndType(userId, betId, "credit"))
+        .thenReturn(Optional.empty());
+
+        // Act
+        double balance = walletService.credit(userId, betId, debitAmount);
+
+        // Assert
+        assertThat(balance).isEqualTo(initialBalance + debitAmount);
+    }
+
+    @Test
+    void credit_idempotancy() {
+        // Arrange
+        String userId = "user123";
+        String betId = "bet123";
+        double initialBalance = 100.0; 
+        double debitAmount = 50.0;
+
+        Wallet wallet = new Wallet(userId, initialBalance);
+        when(walletRepository.findById(userId)).thenReturn(Optional.of(wallet));
+        
+        Transaction credit = new Transaction();
+        credit.setWalletId(userId);
+        credit.setBetId(betId);
+        credit.setType("credit");
+        when(transactionRepository.findByWalletIdAndBetIdAndType(userId, betId, "credit"))
+        .thenReturn(Optional.of(credit));
+
+        // Act
+        double balance = walletService.credit(userId, betId, debitAmount);
+
+        // Assert
+        assertThat(balance).isEqualTo(initialBalance);
+    }
+
+    
+    @Test
+    void creditError_withoutDebit() {
+        // Arrange
+        String userId = "user123";
+        String betId = "bet123";
+        double initialBalance = 100.0; 
+        double debitAmount = 50.0;
+
+        Wallet wallet = new Wallet(userId, initialBalance);
+        when(walletRepository.findById(userId)).thenReturn(Optional.of(wallet));
+        
+        when(transactionRepository.findByWalletIdAndBetIdAndType(userId, betId, "credit"))
+        .thenReturn(Optional.empty());
+        
+        when(transactionRepository.findByWalletIdAndBetIdAndType(userId, betId, "debit"))
+        .thenReturn(Optional.empty());
+
+        // Act & Assert
+        assertThrows(NoSuchElementException.class, () -> {
+            walletService.credit(userId, betId, debitAmount);
+        });
+    }
 }
