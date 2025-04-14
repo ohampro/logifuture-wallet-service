@@ -1,6 +1,9 @@
 package com.example.wallet_service.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.wallet_service.dto.TransactionInfo;
+import com.example.wallet_service.model.Transaction;
 import com.example.wallet_service.service.WalletService;
 
 @RestController
@@ -21,6 +25,12 @@ public class WalletController {
     public BalanceResponse getBalance(@PathVariable String userId) {
         double balance = walletService.getBalance(userId);
         return new BalanceResponse(balance);
+    }
+
+    @GetMapping("/users/{userId}/transactions")
+    public ResponseEntity<List<Transaction>> getTransactions(@PathVariable String userId) {
+        List<Transaction> transactions = walletService.getTransactions(userId);
+        return ResponseEntity.ok(transactions);
     }
     
     @PostMapping("/transactions/debit")
