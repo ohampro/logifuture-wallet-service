@@ -1,6 +1,7 @@
 ## v1.0.1
 - feature: #10 Add User transactions API
 - chore: clean up structure and comments
+- feature: #12 Prevents race conditions on balance update
 
 
 ## v1.0.0

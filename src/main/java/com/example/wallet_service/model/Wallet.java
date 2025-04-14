@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,9 @@ public class Wallet {
 
     private Instant createdAt;
 
+    @Version
+    private Long version;
+    
     public Wallet(String userId, double balance) {
         this.userId = userId;
         this.balance = balance;
