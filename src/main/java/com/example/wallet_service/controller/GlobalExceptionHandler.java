@@ -15,6 +15,11 @@ public class GlobalExceptionHandler {
         return buildResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UnsupportedOperationException.class)
+    public ResponseEntity<ControllerErrorResponse> handleUnsupportedOperation(UnsupportedOperationException ex) {
+        return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ControllerErrorResponse> handleIllegalArgument(IllegalArgumentException ex) {
         return buildResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);

@@ -6,6 +6,12 @@
    + Date Persistance Configuration
    + Add Wallet Balance Test
    + Add Rest API
+- feature: #3 Implement debit endpoint
+   + Add Transaction Entity
+   + Add Transaction Repository
+   + Add debit to wallet service
+   + Add Rest API
+   + Update Tests
 
 
 ## initial
