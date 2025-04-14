@@ -1,3 +1,8 @@
+## v1.0.2
+- feature: #14 Reduce DB load when many users view balances frequently.
+   - Cache wallet balances and invalidate after updates.
+   - Fault-Tolerant: Make Wallet Service continue gracefully without Redis.
+
 ## v1.0.1
 - feature: #10 Add User transactions API
 - chore: clean up structure and comments

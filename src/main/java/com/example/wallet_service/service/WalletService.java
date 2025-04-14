@@ -5,6 +5,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import com.example.wallet_service.repository.WalletRepository;
 
 @Service
 public class WalletService {
+    private static final String userBalanceCacheKey = "userBalance";
 
     @Autowired
     private WalletRepository walletRepository;
@@ -29,6 +32,7 @@ public class WalletService {
      * @return the balance of the user's wallet
      * @throws NoSuchElementException if the wallet does not exist
      */
+    @Cacheable(value = userBalanceCacheKey, key = "#userId")
     public double getBalance(String userId) {
         Wallet wallet = walletRepository.findById(userId).orElseThrow();
         return wallet.getBalance();
@@ -48,6 +52,7 @@ public class WalletService {
      * @throws UnsupportedOperationException if the method is not implemented
      */
     @Transactional
+    @CacheEvict(value = userBalanceCacheKey, key = "#userId")
     public double debit(String userId, String betId, double amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be greater than zero");
@@ -94,6 +99,7 @@ public class WalletService {
      * @throws UnsupportedOperationException if the method is not implemented
      */
     @Transactional
+    @CacheEvict(value = userBalanceCacheKey, key = "#userId")
     public double credit(String userId, String betId, double amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be greater than zero");
