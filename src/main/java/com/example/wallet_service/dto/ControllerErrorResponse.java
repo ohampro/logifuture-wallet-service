@@ -1,4 +1,4 @@
-package com.example.wallet_service.controller;
+package com.example.wallet_service.dto;
 
 import lombok.Getter;
 

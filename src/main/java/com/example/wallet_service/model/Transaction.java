@@ -15,24 +15,20 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class Transaction {
 
-    // Transaction ID (UUID)
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // Uncomment if using JPA
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    // Wallet ID (UUID) - Foreign Key to Wallet
     private String walletId;
 
     // Transaction type (DEBIT / CREDIT)
     private String type;
 
-    // Amount (BigDecimal)
     private double amount;
 
-    // Bet ID (String / UUID) - also used for idempotency
+    // Bet ID (UUID) - also used for idempotency
     private String betId;
     
-    // Created at timestamp (Instant)
     private Instant createdAt;
 
     public Transaction(String id, String walletId, String type, double amount, String betId, Instant createdAt) {

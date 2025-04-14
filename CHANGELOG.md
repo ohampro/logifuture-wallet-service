@@ -1,5 +1,6 @@
 ## v1.0.1
 - feature: #10 Add User transactions API
+- chore: clean up structure and comments
 
 
 ## v1.0.0

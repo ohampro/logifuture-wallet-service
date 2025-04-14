@@ -102,7 +102,7 @@ public class WalletService {
         Wallet wallet = walletRepository.findById(userId).orElseThrow();
         double balance = wallet.getBalance();
 
-        // Make it idempodent: Check if the credit exists
+        // Check if the credit exists
         Optional<Transaction> lastCredit = transactionRepository.findByWalletIdAndBetIdAndType(
             userId,
             betId,

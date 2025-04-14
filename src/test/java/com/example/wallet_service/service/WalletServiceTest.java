@@ -121,7 +121,7 @@ public class WalletServiceTest {
         });
     }
 
-    // Test for debit method ----------------------------------------------------
+    // Test for credit method ----------------------------------------------------
     @Test
     void creditShould_increaseBalance() {
         // Arrange

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.wallet_service.dto.ControllerErrorResponse;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
