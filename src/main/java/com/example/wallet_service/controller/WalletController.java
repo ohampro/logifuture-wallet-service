@@ -29,4 +29,9 @@ public class WalletController {
         return new BalanceResponse(balance);
     }
 
+    @PostMapping("/transactions/credit")
+    public BalanceResponse credit(@RequestBody TransactionInfo transactionInfo) {
+        double balance = walletService.credit(transactionInfo.userId, transactionInfo.betId, transactionInfo.amount);
+        return new BalanceResponse(balance);
+    }
 }

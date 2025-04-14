@@ -13,7 +13,10 @@
    + Add Rest API
    + Update Tests
 - bugfix: #7 Debit API does not record transaction
-
+- feature: #4 Implement credit endpoint
+   + Add credit to wallet service
+   + Add Rest API
+   + Update Tests   
 
 ## initial
 - #1 Define Project Scope and Initial Requirements.

@@ -78,5 +78,55 @@ public class WalletService {
         
         return wallet.getBalance();
     }
+    
+    /**
+     * Credits a specified amount to a user's wallet.
+     *
+     * @param userId the ID of the user whose wallet is to be credited
+     * @param amount the amount to credit to the user's wallet
+     * @throws UnsupportedOperationException if the method is not implemented
+     */
+    @Transactional
+    public double credit(String userId, String betId, double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than zero");
+        }
+
+        Wallet wallet = walletRepository.findById(userId).orElseThrow();
+        double balance = wallet.getBalance();
+
+        // Make it idempodent: Check if the credit exists
+        Optional<Transaction> lastCredit = transactionRepository.findByWalletIdAndBetIdAndType(
+            userId,
+            betId,
+            "credit"
+        );
+
+        // Idempotency check:
+        if (lastCredit.isPresent()){
+            return balance;
+        }
+
+        // Check if the debit exists
+        transactionRepository.findByWalletIdAndBetIdAndType(
+            userId,
+            betId,
+            "debit"
+        ).orElseThrow();
+
+        // Insert Transaction Record
+        Transaction credit = new Transaction();
+        credit.setWalletId(userId);
+        credit.setBetId(betId);
+        credit.setType("credit");
+        credit.setAmount(amount);
+        transactionRepository.save(credit);
+        
+        // update user balance
+        wallet.setBalance(balance + amount);
+        walletRepository.save(wallet);
+        
+        return wallet.getBalance();
+    }
 
 }
